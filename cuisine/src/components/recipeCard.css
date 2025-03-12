@@ -1,0 +1,60 @@
+#recettes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.recette {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+  transition: transform 0.3s ease;
+}
+
+.recette:hover {
+  transform: translateY(-5px);
+}
+
+.recette h3 {
+  color: #e44d26;
+  margin-top: 0;
+}
+
+.recette ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.recette li {
+  margin-bottom: 5px;
+}
+
+.recette button {
+  background-color: #f44336; /* Rouge */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.recette button:hover {
+    background-color: #f44336; /* Rouge */
+}
+
+.recette button:last-child {
+    background-color: #4caf50; /* Vert */
+  
+}
+
+.recette button:last-child:hover {
+    background-color: #4caf50; /* Vert */
+}

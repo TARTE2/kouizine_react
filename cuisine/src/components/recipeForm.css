@@ -1,0 +1,38 @@
+
+#formulaire {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  #formulaire input,
+  #formulaire textarea,
+  #formulaire button {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    flex: 1 1 200px; /* Ajustez la largeur des champs */
+  }
+  
+  #formulaire textarea {
+    width: 100%;
+    resize: vertical;
+  }
+  
+  #formulaire button {
+    background-color: #e44d26;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #formulaire button:hover {
+    background-color: #d1421e;
+  }
