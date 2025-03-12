@@ -72,8 +72,6 @@ function App() {
           ></RecipeCard>
         ))}
       </div>
-
-      <h1>rehjkgbrehv</h1>
     </>
   );
 }
