@@ -32,6 +32,13 @@ function App() {
     });
   };
 
+
+  const handleEdit = (id) => {
+    console.log(id)
+  };
+
+
+
   const chargerRecettes = () => {
     db.recipes
       .toArray()
@@ -62,6 +69,7 @@ function App() {
         {recipeList.map((card) => (
           <RecipeCard
             key={card.id}
+            title={card.title}
             cuissonTime={card.cuissonTime}
             ingredients={card.ingredients}
             methode={card.methode}
