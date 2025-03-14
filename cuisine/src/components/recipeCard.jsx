@@ -2,8 +2,10 @@ import './recipeCard.css';
 
 const RecipeCard = ({ cuissonTime, ingredients, methode, handleEdit, handleDelete }) => {
     // Ensure ingredients is an array
-    const ingredientsArray = Array.isArray(ingredients) ? ingredients : [];
+    const ingredientsArray = Array.isArray(ingredients) ? ingredients : ingredients.split(',');
 
+
+    console.log(cuissonTime);
     return (
       <div className="recette">
         <h3>Test</h3>

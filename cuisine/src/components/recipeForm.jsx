@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import './recipeForm.css';
 
 const RecipeForm = ({ handleAdd }) => {
-    const [form, setForm] = useState({title: "", cookingTime: 1, ingredients: "", method: ""});
+    const [form, setForm] = useState({title: "", cuissonTime: 1, ingredients: "", methode: ""});
 
     const handleChange = (e) => {
         const { id, value } = e.target;
@@ -13,7 +13,7 @@ const RecipeForm = ({ handleAdd }) => {
     };
 
     const clearForm = () => {
-        setForm({title: "", cookingTime: 1, ingredients: "", method: ""});
+        setForm({title: "", cookingTime: 1, ingredients: "", methode: ""});
     }
 
     const handleSubmit = () => {
@@ -47,9 +47,9 @@ const RecipeForm = ({ handleAdd }) => {
                 onChange={handleChange}
             />
             <textarea
-                id="method"
+                id="methode"
                 placeholder="Méthode"
-                value={form.method}
+                value={form.methode}
                 onChange={handleChange}
             ></textarea>
             <button id="ajouter" onClick={handleSubmit}>Ajouter</button>
