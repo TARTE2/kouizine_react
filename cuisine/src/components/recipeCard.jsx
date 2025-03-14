@@ -15,8 +15,7 @@ const RecipeCard = ({ cuissonTime, ingredients,methode, handleEdit, handleDelete
         
         <h4>Méthode :</h4>
         <p>{methode}</p>
-        
-        <p>méthode recette</p>
+
         <button onClick={handleDelete}>Supprimer</button>
         <button onClick={handleEdit}>Modifier</button>
       </div>
