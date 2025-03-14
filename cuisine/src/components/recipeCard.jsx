@@ -1,6 +1,6 @@
 import './recipeCard.css';
 
-const RecipeCard = ({ cuissonTime, ingredients, method, handleEdit, handleDelete }) => {
+const RecipeCard = ({ cuissonTime, ingredients, methode, handleEdit, handleDelete }) => {
     // Ensure ingredients is an array
     const ingredientsArray = Array.isArray(ingredients) ? ingredients : [];
 
@@ -23,16 +23,14 @@ const RecipeCard = ({ cuissonTime, ingredients, method, handleEdit, handleDelete
         }
         
         {
-          method && method.length > 0 ?
+          methode && methode.length > 0 ?
           <>
             <h4>Méthode :</h4>
-            <p>{method}</p>
+            <p>{methode}</p>
           </>
           :
           <p>Aucune méthode</p>
         }
-        <h4>Méthode :</h4>
-        <p>{method}</p>
         
         <div className='btn-container'>
           <button onClick={handleDelete}>Supprimer</button>
