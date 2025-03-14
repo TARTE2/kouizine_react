@@ -1,6 +1,6 @@
 import './recipeCard.css';
 
-const RecipeCard = ({ cuissonTime, ingredients, methode, handleEdit, handleDelete }) => {
+const RecipeCard = ({title, cuissonTime, ingredients, methode, handleEdit, handleDelete }) => {
     // Ensure ingredients is an array
     const ingredientsArray = Array.isArray(ingredients) ? ingredients : ingredients.split(',');
 
@@ -8,7 +8,7 @@ const RecipeCard = ({ cuissonTime, ingredients, methode, handleEdit, handleDelet
     console.log(cuissonTime);
     return (
       <div className="recette">
-        <h3>Test</h3>
+        <h3>{title}</h3>
         <p>Temps de cuisson : {cuissonTime} minutes</p>
         {
           ingredientsArray && ingredientsArray.length > 0 ?

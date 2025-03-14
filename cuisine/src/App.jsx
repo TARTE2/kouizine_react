@@ -70,6 +70,7 @@ function App() {
         {recipeList.map((card) => (
           <RecipeCard
             key={card.id}
+            title={card.title}
             cuissonTime={card.cuissonTime}
             ingredients={card.ingredients}
             methode={card.methode}
