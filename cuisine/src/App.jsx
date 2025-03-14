@@ -59,7 +59,7 @@ function App() {
 
   return (
     <>
-      <RecipeForm />
+      <RecipeForm handleAdd={sauvegarderRecette} />
       <div className="container-card">
         {recipeList.map((card) => (
           <RecipeCard

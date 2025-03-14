@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import './recipeForm.css';
 
-const RecipeForm = (handleAdd) => {
+const RecipeForm = ({ handleAdd }) => {
     const [form, setForm] = useState({title: "", cookingTime: 1, ingredients: "", method: ""});
 
     const handleChange = (e) => {
