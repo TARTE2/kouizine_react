@@ -18,7 +18,7 @@ function App() {
         title: "Patte de canard",
         cuissonTime: 8,
         ingredients: ["canard", "sauce", "carotte", "patates"],
-        method: " Hola como esta ",
+        methode: " Hola como esta ",
       });
     }
   }, []);
@@ -66,7 +66,7 @@ function App() {
             key={card.id}
             cuissonTime={card.cuissonTime}
             ingredients={card.ingredients}
-            methode={card.method}
+            methode={card.methode}
             handleDelete={() => handleDelete(card.id)}
             handleEdit={() => handleEdit(card.id)}
           ></RecipeCard>

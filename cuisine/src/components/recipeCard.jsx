@@ -1,6 +1,6 @@
 import './recipeCard.css';
 
-const RecipeCard = ({ cuissonTime, ingredients,method, handleEdit, handleDelete }) => {
+const RecipeCard = ({ cuissonTime, ingredients,methode, handleEdit, handleDelete }) => {
 
     return (
       <div className="recette">
@@ -14,7 +14,7 @@ const RecipeCard = ({ cuissonTime, ingredients,method, handleEdit, handleDelete 
         </ul>
         
         <h4>Méthode :</h4>
-        <p>{method}</p>
+        <p>{methode}</p>
         
         <p>méthode recette</p>
         <button onClick={handleDelete}>Supprimer</button>
