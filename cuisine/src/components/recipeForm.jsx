@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import './recipeForm.css';
 
-const RecipeForm = ({ handleAdd, recipeToEdit, handleEdit }) => {
-    const [form, setForm] = useState({ title: "", cuissonTime: 1, ingredients: "", methode: "" });
+const RecipeForm = ({handleAdd, recipeToEdit, handleEdit}) => {
+    const [form, setForm] = useState({title: "", cuissonTime: 1, ingredients: "", methode: ""});
     const [edit, setEdit] = useState(false);
 
     useEffect(() => {
@@ -15,25 +15,24 @@ const RecipeForm = ({ handleAdd, recipeToEdit, handleEdit }) => {
     }, [recipeToEdit]);
 
     const handleChange = (e) => {
-        const { id, value } = e.target;
+        const {id, value} = e.target;
         setForm(prevForm => ({
             ...prevForm,
             [id]: value
         }));
     };
 
-
     const handleSubmit = () => {
-        // Default values
-        const defaultValues = { title: '', cuissonTime: 0, ingredients: '', methode: '' };
+        // Check if any form value is empty or invalid
+        const isEmptyOrInvalid = Object.entries(form).some(([key, value]) => {
+            if (key === 'cuissonTime') {
+                return value <= 0;
+            }
+            return typeof value === 'string' && value.trim() === '';
+        });
 
-        // Check if any form value is still set to its default
-        const isDefault = Object.keys(defaultValues).some(key => form[key] === defaultValues[key]);
-
-        if (isDefault) {
-            // Handle the case where one or more fields are still set to their default values
-            console.error("Please fill out all fields with non-default values.");
-            // Optionally, you can display an error message to the user here
+        if (isEmptyOrInvalid) {
+            console.error("Please fill out all fields with valid values.");
             return;
         }
 
@@ -43,10 +42,8 @@ const RecipeForm = ({ handleAdd, recipeToEdit, handleEdit }) => {
             handleAdd(form);
         }
 
-        // Reset the form to default values after submission
-        setForm(defaultValues);
+        setForm({title: '', cuissonTime: 0, ingredients: '', methode: ''});
     };
-
 
     return (
         <div id="formulaire">
