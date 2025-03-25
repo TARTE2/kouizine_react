@@ -6,19 +6,23 @@ import Dexie from "dexie";
 
 function App() {
   const [recipeList, setRecipeList] = useState([]);
+  const [recipeToEdit, setRecipeToEdit] = useState({});
 
   const db = new Dexie("ContactsDB");
 
   useEffect(() => {
-    chargerRecettes();
-    if (recipeList.length === 0) {
-      sauvegarderRecette({
-        title: "Patte de canard",
-        cuissonTime: 8,
-        ingredients: ["canard", "sauce", "carotte", "patates"],
-        methode: " Hola como esta ",
-      });
-    }
+    db.recipes.count().then((count) => {
+      if (count === 0) {
+        sauvegarderRecette({
+          title: "Patte de canard",
+          cuissonTime: 8,
+          ingredients: ["canard", "sauce", "carotte", "patates"],
+          methode: "Hola como esta",
+        });
+      } else {
+        chargerRecettes();
+      }
+    });
   }, []);
 
   db.version(1).stores({
@@ -32,53 +36,88 @@ function App() {
     });
   };
 
-
-  const handleEdit = (id) => {
-    console.log(id)
+  const test = (recipeCardData) => {
+    setRecipeToEdit(recipeCardData);
   };
-
-
 
   const chargerRecettes = () => {
     db.recipes
-      .toArray()
-      .then((recetteData) => {
-        setRecipeList(recetteData);
-      })
-      .catch((err) => {
-        console.error(err.stack || err);
-      });
+        .toArray()
+        .then((recetteData) => {
+          // Extract IDs from the recipe data
+          const recipeIds = recetteData.map(recipe => recipe.id);
+
+          // Add the id property to each recipe object
+          const updatedRecetteData = recetteData.map((recipe, index) => {
+            return {
+              ...recipe,
+              id: recipeIds[index]
+            };
+
+          });
+          console.log(updatedRecetteData)
+
+          setRecipeList(updatedRecetteData);
+        })
+        .catch((err) => {
+          console.error(err.stack || err);
+        });
   };
 
   const sauvegarderRecette = (newRecipe) => {
     db.recipes
-      .add(newRecipe)
-      .then((id) => {
-        console.log(`Recette ajouté avec l'ID ${id}`);
-        chargerRecettes();
-      })
-      .catch((err) => {
-        console.error(err.stack || err);
-      });
+        .add(newRecipe)
+        .then((id) => {
+          console.log(`Recette ajouté avec l'ID ${id}`);
+          chargerRecettes();
+        })
+        .catch((err) => {
+          console.error(err.stack || err);
+        });
+  };
+
+  const modifierForm = (recipe) => {
+    console.log(recipe);
+
+    if (!recipe.id) {
+      console.error("Invalid recipe ID:", recipe);
+      return;
+    }
+    db.recipes.update(recipe.id, recipe)
+        .then((updated) => {
+          if (updated) {
+            console.log(`Recipe updated with id ${recipe.id}`);
+            chargerRecettes();
+          } else {
+            console.error("Update failed: No matching ID found");
+          }
+        })
+        .catch((err) => {
+          console.error(err.stack || err);
+        });
   };
 
   return (
-    <>
-      <RecipeForm handleAdd={sauvegarderRecette} />
-      <div className="container-card">
-        {recipeList.map((card) => (
-          <RecipeCard
-            key={card.id}
-            title={card.title}
-            cuissonTime={card.cuissonTime}
-            ingredients={card.ingredients}
-            methode={card.methode}
-            handleDelete={() => handleDelete(card.id)}
-            handleEdit={() => handleEdit(card.id)}
-          ></RecipeCard>
-        ))}
-      </div>
-    </>
+      <>
+        <RecipeForm
+            handleAdd={sauvegarderRecette}
+            recipeToEdit={recipeToEdit}
+            handleEdit={modifierForm} // Pass modifierForm here
+        />
+        <div className="container-card">
+          {recipeList.map((card) => (
+              <RecipeCard
+                  key={card.id}
+                  title={card.title}
+                  cuissonTime={card.cuissonTime}
+                  ingredients={card.ingredients}
+                  methode={card.methode}
+                  handleDelete={() => handleDelete(card.id)}
+                  handleEdit={() => test(card)}
+              />
+          ))}
+        </div>
+      </>
   );
 }
 

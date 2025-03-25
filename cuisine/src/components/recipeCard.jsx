@@ -4,8 +4,6 @@ const RecipeCard = ({title, cuissonTime, ingredients, methode, handleEdit, handl
     // Ensure ingredients is an array
     const ingredientsArray = Array.isArray(ingredients) ? ingredients : ingredients.split(',');
 
-
-    console.log(cuissonTime);
     return (
       <div className="recette">
         <h3>{title}</h3>

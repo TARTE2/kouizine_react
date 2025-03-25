@@ -1,8 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './recipeForm.css';
 
-const RecipeForm = ({ handleAdd }) => {
-    const [form, setForm] = useState({title: "", cuissonTime: 1, ingredients: "", methode: ""});
+const RecipeForm = ({ handleAdd, recipeToEdit, handleEdit }) => {
+    const [form, setForm] = useState({ title: "", cuissonTime: 1, ingredients: "", methode: "" });
+    const [edit, setEdit] = useState(false);
+
+    useEffect(() => {
+        if (recipeToEdit && Object.keys(recipeToEdit).length > 0) {
+            setEdit(true);
+            setForm(recipeToEdit);
+        } else {
+            setEdit(false);
+        }
+    }, [recipeToEdit]);
 
     const handleChange = (e) => {
         const { id, value } = e.target;
@@ -12,15 +22,31 @@ const RecipeForm = ({ handleAdd }) => {
         }));
     };
 
-    const clearForm = () => {
-        setForm({title: "", cookingTime: 1, ingredients: "", methode: ""});
-    }
 
     const handleSubmit = () => {
-        console.log(form);
-        handleAdd(form);
-        clearForm();
+        // Default values
+        const defaultValues = { title: '', cuissonTime: 0, ingredients: '', methode: '' };
+
+        // Check if any form value is still set to its default
+        const isDefault = Object.keys(defaultValues).some(key => form[key] === defaultValues[key]);
+
+        if (isDefault) {
+            // Handle the case where one or more fields are still set to their default values
+            console.error("Please fill out all fields with non-default values.");
+            // Optionally, you can display an error message to the user here
+            return;
+        }
+
+        if (form.id) {
+            handleEdit(form);
+        } else {
+            handleAdd(form);
+        }
+
+        // Reset the form to default values after submission
+        setForm(defaultValues);
     };
+
 
     return (
         <div id="formulaire">
@@ -33,10 +59,10 @@ const RecipeForm = ({ handleAdd }) => {
             />
             <input
                 type="number"
-                id="cookingTime"
+                id="cuissonTime"
                 placeholder="Temps de cuisson (minutes)"
                 min="1"
-                value={form.cookingTime}
+                value={form.cuissonTime}
                 onChange={handleChange}
             />
             <input
@@ -52,8 +78,10 @@ const RecipeForm = ({ handleAdd }) => {
                 value={form.methode}
                 onChange={handleChange}
             ></textarea>
-            <button id="ajouter" onClick={handleSubmit}>Ajouter</button>
-            <button id="sauvegarder" style={{display: "none"}}>Sauvegarder</button>
+
+            <button type="submit" id="sauvegarder" onClick={handleSubmit}>
+                {form.id ? 'Sauvegarder' : 'Ajouter'}
+            </button>
         </div>
     );
 }
