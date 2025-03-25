@@ -25,7 +25,6 @@ function App() {
     // Sauvegarder les contacts dans localStorage
     const sauvegarderContact = (contact) => {
         db.contacts.add(contact).then((id) => {
-            console.log(`Contact ajouté avec l'ID ${id}`);
             chargerContacts();
         }).catch((err) => {
             console.error(err.stack || err);
@@ -54,7 +53,6 @@ function App() {
 
         //sauvegarderContacts(updatedContacts);
         db.contacts.delete(id).then(() => {
-            console.log(`Contact avec l'ID ${id} supprimé`);
             chargerContacts();
         })
     };
@@ -68,7 +66,6 @@ function App() {
             const updatedContact = { nom: newNom, email: newEmail, age: parseInt(newAge), id };
 
             db.contacts.update(id, updatedContact).then(() => {
-                console.log(`Contact avec l'ID ${id} mis à jour`);
                 chargerContacts();
             }).catch((err) => {
                 console.error(err.stack || err);

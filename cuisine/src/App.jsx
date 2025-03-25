@@ -51,7 +51,6 @@ function App() {
                         ...recipe, id: recipeIds[index]
                     };
                 });
-                console.log(updatedRecetteData)
 
                 setRecipeList(updatedRecetteData);
             })
@@ -64,7 +63,6 @@ function App() {
         db.recipes
             .add(newRecipe)
             .then((id) => {
-                console.log(`Recette ajouté avec l'ID ${id}`);
                 chargerRecettes();
             })
             .catch((err) => {
@@ -73,8 +71,6 @@ function App() {
     };
 
     const modifierForm = (recipe) => {
-        console.log(recipe);
-
         if (!recipe.id) {
             console.error("Invalid recipe ID:", recipe);
             return;
@@ -82,7 +78,6 @@ function App() {
         db.recipes.update(recipe.id, recipe)
             .then((updated) => {
                 if (updated) {
-                    console.log(`Recipe updated with id ${recipe.id}`);
                     chargerRecettes();
                 } else {
                     console.error("Update failed: No matching ID found");
