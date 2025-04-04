@@ -11,6 +11,7 @@ function App() {
     const db = new Dexie("ContactsDB");
 
     useEffect(() => {
+        // ajoute une recette si la base de données est vide
         db.recipes.count().then((count) => {
             if (count === 0) {
                 sauvegarderRecette({
@@ -25,27 +26,25 @@ function App() {
         });
     }, []);
 
+    // creation de la table des recettes
     db.version(1).stores({
         recipes: "++id, title, cuissonTime, ingredients, methode",
     });
 
     const handleDelete = (id) => {
+        // supprime une recette de la liste et de la base de données
         setRecipeList(recipeList.filter((rec) => rec.id !== id));
         db.recipes.delete(id).catch((err) => {
             console.error(err.stack || err);
         });
     };
 
-    const test = (recipeCardData) => {
-        setRecipeToEdit(recipeCardData);
-    };
-
     const chargerRecettes = () => {
+        // chargement des recettes depuis la base
         db.recipes
             .toArray()
             .then((recetteData) => {
                 const recipeIds = recetteData.map(recipe => recipe.id);
-
                 const updatedRecetteData = recetteData.map((recipe, index) => {
                     return {
                         ...recipe, id: recipeIds[index]
@@ -60,6 +59,7 @@ function App() {
     };
 
     const sauvegarderRecette = (newRecipe) => {
+        // ajoute une nouvelle recette dans la base de données
         db.recipes
             .add(newRecipe)
             .then((id) => {
@@ -71,8 +71,9 @@ function App() {
     };
 
     const modifierForm = (recipe) => {
+        // modifie une recette existante dans la base de données
         if (!recipe.id) {
-            console.error("Invalid recipe ID:", recipe);
+            console.error("ID de recette invalide :", recipe);
             return;
         }
         db.recipes.update(recipe.id, recipe)
@@ -80,7 +81,7 @@ function App() {
                 if (updated) {
                     chargerRecettes();
                 } else {
-                    console.error("Update failed: No matching ID found");
+                    console.error("Échec de la mise à jour : aucun ID correspondant trouvé");
                 }
             })
             .catch((err) => {
@@ -93,7 +94,7 @@ function App() {
         <RecipeForm
             handleAdd={sauvegarderRecette}
             recipeToEdit={recipeToEdit}
-            handleEdit={modifierForm} // Pass modifierForm here
+            handleEdit={modifierForm}
         />
         <div className="container-card">
             {recipeList.map((card) => (<RecipeCard
@@ -103,7 +104,7 @@ function App() {
                 ingredients={card.ingredients}
                 methode={card.methode}
                 handleDelete={() => handleDelete(card.id)}
-                handleEdit={() => test(card)}
+                handleEdit={() => setRecipeToEdit(card)}
             />))}
         </div>
     </>);

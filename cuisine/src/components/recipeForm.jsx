@@ -6,15 +6,18 @@ const RecipeForm = ({ handleAdd, recipeToEdit, handleEdit }) => {
     const [edit, setEdit] = useState(false);
 
     useEffect(() => {
+        // si une recette est fournie on initialise le formulaire
         if (recipeToEdit && Object.keys(recipeToEdit).length > 0) {
             setEdit(true);
             setForm(recipeToEdit);
         } else {
+            // sinon on reset le formulaire
             setEdit(false);
         }
     }, [recipeToEdit]);
 
     const handleChange = (e) => {
+        // mise à jour du formulaire lors de la saisie
         const { id, value } = e.target;
         setForm(prevForm => ({
             ...prevForm,
@@ -23,25 +26,27 @@ const RecipeForm = ({ handleAdd, recipeToEdit, handleEdit }) => {
     };
 
     const handleSubmit = () => {
-        // Check if any form value is empty or invalid
+        // verification des champs
         const isEmptyOrInvalid = Object.entries(form).some(([key, value]) => {
             if (key === 'cuissonTime') {
-                return value <= 0;
+                return value <= 0; // temps de cuisson supérieur à 0
             }
-            return typeof value === 'string' && value.trim() === '';
+            return typeof value === 'string' && value.trim() === ''; // champs non vides
         });
 
         if (isEmptyOrInvalid) {
-            console.error("Please fill out all fields with valid values.");
+            console.error("Veuillez remplir tous les champs avec des valeurs valides.");
             return;
         }
 
+        // appel de la fonction d'ajout ou de modification
         if (form.id) {
             handleEdit(form);
         } else {
             handleAdd(form);
         }
 
+        // reset le formulaire
         setForm({ title: '', cuissonTime: null, ingredients: '', methode: '' });
     };
 

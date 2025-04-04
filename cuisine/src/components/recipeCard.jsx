@@ -1,7 +1,7 @@
 import './recipeCard.css';
 
-const RecipeCard = ({title, cuissonTime, ingredients, methode, handleEdit, handleDelete}) => {
-    // Ensure ingredients is an array
+const RecipeCard = ({ title, cuissonTime, ingredients, methode, handleEdit, handleDelete }) => {
+    // check si les ingrédients sont sous forme de tableau
     const ingredientsArray = Array.isArray(ingredients) ? ingredients : ingredients.split(',');
 
     return (<div className="recette">
