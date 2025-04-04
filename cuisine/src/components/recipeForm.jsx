@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import './recipeForm.css';
 
-const RecipeForm = ({handleAdd, recipeToEdit, handleEdit}) => {
-    const [form, setForm] = useState({title: "", cuissonTime: 1, ingredients: "", methode: ""});
+const RecipeForm = ({ handleAdd, recipeToEdit, handleEdit }) => {
+    const [form, setForm] = useState({ title: "", cuissonTime: null, ingredients: "", methode: "" });
     const [edit, setEdit] = useState(false);
 
     useEffect(() => {
@@ -15,7 +15,7 @@ const RecipeForm = ({handleAdd, recipeToEdit, handleEdit}) => {
     }, [recipeToEdit]);
 
     const handleChange = (e) => {
-        const {id, value} = e.target;
+        const { id, value } = e.target;
         setForm(prevForm => ({
             ...prevForm,
             [id]: value
@@ -42,7 +42,7 @@ const RecipeForm = ({handleAdd, recipeToEdit, handleEdit}) => {
             handleAdd(form);
         }
 
-        setForm({title: '', cuissonTime: 0, ingredients: '', methode: ''});
+        setForm({ title: '', cuissonTime: null, ingredients: '', methode: '' });
     };
 
     return (
