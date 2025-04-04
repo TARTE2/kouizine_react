@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import RecipeCard from "./components/recipeCard";
 import RecipeForm from "./components/recipeForm";
@@ -89,6 +89,7 @@ function App() {
     };
 
     return (<>
+        <h1>Liste de recettes</h1>
         <RecipeForm
             handleAdd={sauvegarderRecette}
             recipeToEdit={recipeToEdit}

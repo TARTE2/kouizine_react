@@ -12,3 +12,8 @@ body {
   flex-wrap: wrap;
   gap: 20px;
 }
+
+h1 {
+  color: #e44d26;
+  text-align: center;
+}
